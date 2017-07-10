@@ -1,0 +1,21 @@
+
+Types
+Type accuracy:	4806/5049	0.95
+Type confusion matrix:
+Predicted\	Gold
+	IV	NO	OOV
+IV	2992		92
+NO		1027	142
+OOV	3	6	787
+
+Normalisation:
+Tokens left alone:	4349
+Under-normalised tokens:	150
+Over-normalised tokens:	128
+Correctly normalised tokens:	314
+Incorrectly normalised tokens:	108
+Accuracy of normalisation over all tokens:	4663/5049	0.92
+Accuracy ignoring over-normalisation:	4663/4921	0.95
+Accuracy for tokens normalised in gold standard:	314/572	0.55
+Precision of normalisation:	314/550	0.57
+Recall of normalisation:	314/572	0.55

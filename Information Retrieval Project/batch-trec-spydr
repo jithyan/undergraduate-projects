@@ -1,0 +1,41 @@
+#!/bin/bash
+
+RUN="run1"
+N=100
+DOCSET="/home/subjects/327/local/project2/docset/"
+DATAHOME="$HOME/ktproj2"
+SPYDRHOME="$DATAHOME/bin"
+TEST=0
+
+
+while getopts tn:r:d:peq opt
+do
+     case $opt in
+     t) TEST=1;;
+     n) N="$OPTARG";;
+     r) RUN="$OPTARG";;
+     d) DOCSET="$OPTARG";;
+     p) PSEUDO="p";;
+     e) TOKEN="e";;
+     q) QUERY="q";;
+     ?) echo "Usage: $0 [-t] [-n <N-docs>] [-r <RUN-NAME>] [-d <DOCSET-DIRECTORY>]";
+        exit 1;;
+     esac
+done
+
+
+
+TRAINOUT="$RUN.train"
+
+
+
+python $SPYDRHOME/spydr.py -f $DATAHOME/topics/TrainingTopics.trec -r $RUN -n $N -d $DOCSET -$PSEUDO -$TOKEN -$QUERY > $TRAINOUT
+python $DATAHOME/eval/pairwise_pref_eval.py $DATAHOME/eval/training.qrels $TRAINOUT
+
+
+
+if [ $TEST = 1 ]; then
+    TESTOUT="$RUN.test"
+    python $SPYDRHOME/spydr.py -f $DATAHOME/topics/TestTopics.trec -r $RUN -n $N -d $DOCSET -$PSEUDO -$TOKEN -$QUERY > $TESTOUT
+fi
+
